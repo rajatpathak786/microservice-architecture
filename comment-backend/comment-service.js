@@ -23,8 +23,8 @@ const addCommentService = async (req) => {
     await emitEvent({ postId: req.params.id, ...comment });
     return comment;
   }
-  await emitEvent({ postId: req.params.id, ...comment });
   comments.push({ [req.params.id]: [comment] });
+  await emitEvent({ postId: req.params.id, ...comment });
   return comment;
 };
 
