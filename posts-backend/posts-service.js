@@ -1,16 +1,26 @@
-const products = [];
+const axios = require("axios");
+const posts = [];
 
-const getAllProducts = () => {
-  return products;
+const getAllPostsService = () => {
+  return posts;
 };
 
-const addProduct = (req) => {
-  const product = {
-    id: products.length + 1,
+const addPostService = async (req) => {
+  const post = {
+    id: posts.length + 1,
     title: req.title,
   };
-  products.push(product);
-  return product;
+  posts.push(post);
+  await axios.post(`http://localhost:4005/event`, {
+    type: `CreatePost`,
+    data: { ...post },
+  });
+  return post;
 };
 
-module.exports = { getAllProducts, addProduct };
+const eventListenerService = (req) => {
+  console.log(`Listening to event type ${req.body.type}`);
+  return;
+};
+
+module.exports = { getAllPostsService, addPostService, eventListenerService };
