@@ -6,9 +6,9 @@ import ListComments from "./ListComments";
 function ListPosts() {
   const [posts, setPost] = useState([]);
   const fetchPosts = async () => {
-    const res = await axios.get(`http://localhost:4000/posts`).catch((err) => {
-      console.log(err);
-    });
+    const res = await axios
+      .get(`http://localhost:4002/posts`)
+      .catch((err) => console.log(err));
     if (res && res.status === 200) {
       setPost(res.data);
     }
@@ -17,19 +17,18 @@ function ListPosts() {
     fetchPosts();
   }, []);
   const postList = posts.map((post) => {
+    const { postId, title, comments } = post;
     return (
       <div
         className="card"
         style={{ width: "30%", marginBottom: "20px" }}
-        key={post.id}
+        key={postId}
       >
         <div className="card-body">
-          <h5 className="card-title">{post.id}</h5>
-          <h2 className="card-subtitle mb-2 text-body-secondary">
-            {post.title}
-          </h2>
-          <ListComments postId={post.id} />
-          <CreateComment postId={post.id} />
+          <h5 className="card-title">{postId}</h5>
+          <h2 className="card-subtitle mb-2 text-body-secondary">{title}</h2>
+          <ListComments comments={comments} />
+          <CreateComment postId={postId} />
         </div>
       </div>
     );

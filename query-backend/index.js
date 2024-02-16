@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const { framePostAndCommentController } = require("./query-controller");
+const { framePostAndCommentController, getPostsController } = require("./query-controller");
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -12,3 +12,4 @@ app.listen(4002, () => {
 });
 
 app.post("/event", framePostAndCommentController);
+app.get("/posts", getPostsController);

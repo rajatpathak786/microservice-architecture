@@ -9,12 +9,8 @@ function CreateComment({ postId }) {
       .post(`http://localhost:4001/posts/${postId}/comment`, {
         content: comment,
       })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
     setComment("");
   };
   return (
