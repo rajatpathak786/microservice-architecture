@@ -5,28 +5,38 @@ const getAllPostsService = () => {
 };
 
 const framePostAndCommentService = async (req) => {
-  const { postId, content, id, title } = req.body.data;
+  const { type, data } = req.body;
+  const { postId, content, commentId, title, status } = data;
   const post = {
-    postId: id,
+    postId: postId,
     title: title,
     comments: [],
   };
-  if (req.body.type === `CreatePost`) {
-    posts.push(post);
-  }
-  if (req.body.type === `CreateComment`) {
-    posts.map((post) => {
-      console.log(post, postId);
-      if (post.postId == postId) {
-        post.comments.push({
-          id,
-          content,
-        });
-      }
-    });
+  switch (type) {
+    case `CreatePost`:
+      posts.push(post);
+      break;
+    case `CreateComment`:
+      posts.map((post) => {
+        if (post.postId == postId) {
+          post.comments.push({
+            commentId,
+            content,
+            status,
+          });
+        }
+      });
+      break;
+    case `CommentUpdated`:
+      const postByPostId = posts.find((post) => post.postId == postId);
+      const commentByCommentId = postByPostId.comments.find(
+        (comment) => comment.commentId == commentId
+      );
+      commentByCommentId.status = status;
+
+      break;
   }
   console.log(posts);
-
   return post;
 };
 

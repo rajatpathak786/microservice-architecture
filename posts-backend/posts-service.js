@@ -7,7 +7,7 @@ const getAllPostsService = () => {
 
 const addPostService = async (req) => {
   const post = {
-    id: posts.length + 1,
+    postId: posts.length + 1,
     title: req.title,
   };
   posts.push(post);
