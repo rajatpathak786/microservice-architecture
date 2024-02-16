@@ -30,10 +30,12 @@ const addCommentService = async (req) => {
 };
 
 const emitEvent = async (eventType, body) => {
-  await axios.post(`http://localhost:4005/event`, {
-    type: eventType,
-    data: { ...body },
-  });
+  await axios
+    .post(`http://localhost:4005/event`, {
+      type: eventType,
+      data: { ...body },
+    })
+    .catch((err) => console.log(err.message));
 };
 
 const updateCommentStatus = async (body) => {

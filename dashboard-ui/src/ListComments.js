@@ -9,6 +9,8 @@ function DisplayContent(comment) {
       return `Comment has been rejected`;
     case `Pending`:
       return `Comment is subject to moderation`;
+    default:
+      return content;
   }
 }
 

@@ -5,11 +5,15 @@ const commentModerationService = async (req) => {
   const { type, data } = req.body;
   const { content } = data;
   if (type === `CreateComment`) {
-    content.includes(`New`) ? (data.status = `Rejected`) : (data.status = `Approved`);
-    await axios.post(`http://localhost:4005/event`, {
-      type: `CommentModerated`,
-      data: { ...data },
-    });
+    content.includes(`New`)
+      ? (data.status = `Rejected`)
+      : (data.status = `Approved`);
+    await axios
+      .post(`http://localhost:4005/event`, {
+        type: `CommentModerated`,
+        data: { ...data },
+      })
+      .catch((err) => console.log(err.message));
   }
   return;
 };

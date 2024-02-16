@@ -11,10 +11,12 @@ const addPostService = async (req) => {
     title: req.title,
   };
   posts.push(post);
-  await axios.post(`http://localhost:4005/event`, {
-    type: `CreatePost`,
-    data: { ...post },
-  });
+  await axios
+    .post(`http://localhost:4005/event`, {
+      type: `CreatePost`,
+      data: { ...post },
+    })
+    .catch((err) => console.log(err.message));
   return post;
 };
 
