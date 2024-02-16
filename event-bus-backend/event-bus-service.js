@@ -1,6 +1,9 @@
 const axios = require("axios");
+const events = [];
 
 const emitEventService = async (req) => {
+  const event = req.body;
+  events.push(event);
   await axios
     .post(`http://localhost:4000/event`, req.body)
     .catch((err) => console.log(err.message));
@@ -16,4 +19,6 @@ const emitEventService = async (req) => {
   return;
 };
 
-module.exports = { emitEventService };
+const getAllEventsService = () => events;
+
+module.exports = { emitEventService, getAllEventsService };

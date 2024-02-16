@@ -1,6 +1,7 @@
 const {
   getAllPostsService,
   framePostAndCommentService,
+  queryPendingEventsService,
 } = require("./query-service");
 
 const getPostsController = (req, res) => {
@@ -13,7 +14,12 @@ const framePostAndCommentController = (req, res) => {
   res.status(201).json(response);
 };
 
+const queryPendingEventsController = async () => {
+  return await queryPendingEventsService();
+};
+
 module.exports = {
   getPostsController,
   framePostAndCommentController,
+  queryPendingEventsController,
 };

@@ -1,4 +1,5 @@
 const posts = [];
+const axios = require("axios");
 
 const getAllPostsService = () => {
   return posts;
@@ -14,16 +15,18 @@ const framePostAndCommentService = async (req) => {
   };
   switch (type) {
     case `CreatePost`:
-      posts.push(post);
+      posts.find((post) => post.postId == postId) ? null : posts.push(post);
       break;
     case `CreateComment`:
       posts.map((post) => {
         if (post.postId == postId) {
-          post.comments.push({
-            commentId,
-            content,
-            status,
-          });
+          post.comments.find((comment) => comment.commentId == commentId)
+            ? null
+            : post.comments.push({
+                commentId,
+                content,
+                status,
+              });
         }
       });
       break;
@@ -36,8 +39,21 @@ const framePostAndCommentService = async (req) => {
 
       break;
   }
-  console.log(posts);
   return post;
 };
 
-module.exports = { getAllPostsService, framePostAndCommentService };
+const queryPendingEventsService = async () => {
+  const events = await axios
+    .get(`http://localhost:4005/event`)
+    .catch((err) => console.log(err.message));
+  const promises = events.data.map(
+    async (event) => await framePostAndCommentService({ body: event })
+  );
+  return Promise.all(promises);
+};
+
+module.exports = {
+  getAllPostsService,
+  framePostAndCommentService,
+  queryPendingEventsService,
+};
