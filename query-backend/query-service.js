@@ -46,10 +46,12 @@ const queryPendingEventsService = async () => {
   const events = await axios
     .get(`http://localhost:4005/event`)
     .catch((err) => console.log(err.message));
-  const promises = events.data.map(
-    async (event) => await framePostAndCommentService({ body: event })
-  );
-  return Promise.all(promises);
+  if (events && events.data) {
+    const promises = events.data.map(
+      async (event) => await framePostAndCommentService({ body: event })
+    );
+    return Promise.all(promises);
+  }
 };
 
 module.exports = {
