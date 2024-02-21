@@ -13,5 +13,5 @@ RUN npm install
 # COPY everything else
 COPY ./ ./
 
-# Initial start cmd 
-CMD [ "npm", "start" ]
+# # Initial start cmd 
+# CMD [ "npm", "start" ]

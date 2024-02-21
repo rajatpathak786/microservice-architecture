@@ -1,0 +1,94 @@
+version: '3.8'
+services:
+  comment-backend:
+    container_name: comment-backend
+    image: comment-backend
+    build:
+      context: ./comment-backend
+      dockerfile: Dockerfile
+    ports:
+      - 4001:4001    
+    networks:
+      - backend_network
+    volumes:
+      - ./comment-backend:/usr/app
+    restart: unless-stopped
+    command: 'npm start'  
+
+  dashboard-ui:
+    container_name: dashboard-ui
+    image: dashboard-ui
+    build:
+      context: ./dashboard-ui
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000    
+    networks:
+      - backend_network
+    volumes:
+      - ./dashboard-ui:/usr/app
+    restart: unless-stopped
+    command: 'npm start'  
+
+  event-bus-backend:
+    container_name: event-bus-backend
+    image: event-bus-backend
+    build:
+      context: ./event-bus-backend
+      dockerfile: Dockerfile
+    ports:
+      - 4005:4005
+    networks:
+      - backend_network
+    volumes:
+      - ./event-bus-backend:/usr/app
+    restart: unless-stopped
+    command: 'npm start'  
+
+  moderation-backend:
+    container_name: moderation-backend
+    image: moderation-backend
+    build:
+      context: ./moderation-backend
+      dockerfile: Dockerfile
+    ports:
+      - 4003:4003    
+    networks:
+      - backend_network
+    volumes:
+      - ./moderation-backend:/usr/app
+    restart: unless-stopped
+    command: 'npm start'
+
+  posts-backend:
+    container_name: posts-backend
+    image: posts-backend
+    build:
+      context: ./posts-backend
+      dockerfile: Dockerfile
+    ports:
+      - 4000:4000    
+    networks:
+      - backend_network
+    volumes:
+      - ./posts-backend:/usr/app
+    restart: unless-stopped
+    command: 'npm start'
+    
+  query-backend:
+    container_name: query-backend
+    image: query-backend
+    build:
+      context: ./query-backend
+      dockerfile: Dockerfile
+    ports:
+      - 4002:4002 
+    networks:
+      - backend_network
+    volumes:
+      - ./query-backend:/usr/app
+    restart: unless-stopped
+    command: 'npm start'    
+networks:
+  backend_network:
+    driver: bridge
