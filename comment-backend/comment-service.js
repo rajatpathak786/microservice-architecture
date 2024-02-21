@@ -31,7 +31,7 @@ const addCommentService = async (req) => {
 
 const emitEvent = async (eventType, body) => {
   await axios
-    .post(`http://localhost:4005/event`, {
+    .post(`http://${process.env.HOST_EVENT_BUS_BACKEND}:4005/event`, {
       type: eventType,
       data: { ...body },
     })

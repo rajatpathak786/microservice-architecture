@@ -7,7 +7,9 @@ services:
       context: ./comment-backend
       dockerfile: Dockerfile
     ports:
-      - 4001:4001    
+      - 4001:4001
+    environment:
+      - HOST_EVENT_BUS_BACKEND=event-bus-backend
     networks:
       - backend_network
     volumes:
@@ -38,6 +40,11 @@ services:
       dockerfile: Dockerfile
     ports:
       - 4005:4005
+    environment:
+      - HOST_POSTS_BACKEND=posts-backend
+      - HOST_COMMENT_BACKEND=comment-backend
+      - HOST_QUERY_BACKEND=query-backend
+      - HOST_MODERATION_BACKEND=moderation-backend
     networks:
       - backend_network
     volumes:
@@ -52,7 +59,9 @@ services:
       context: ./moderation-backend
       dockerfile: Dockerfile
     ports:
-      - 4003:4003    
+      - 4003:4003
+    environment:
+      - HOST_EVENT_BUS_BACKEND=event-bus-backend  
     networks:
       - backend_network
     volumes:
@@ -67,7 +76,9 @@ services:
       context: ./posts-backend
       dockerfile: Dockerfile
     ports:
-      - 4000:4000    
+      - 4000:4000
+    environment:
+      - HOST_EVENT_BUS_BACKEND=event-bus-backend  
     networks:
       - backend_network
     volumes:
@@ -82,7 +93,9 @@ services:
       context: ./query-backend
       dockerfile: Dockerfile
     ports:
-      - 4002:4002 
+      - 4002:4002
+    environment:
+      - HOST_EVENT_BUS_BACKEND=event-bus-backend
     networks:
       - backend_network
     volumes:

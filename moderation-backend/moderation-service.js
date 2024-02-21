@@ -9,7 +9,7 @@ const commentModerationService = async (req) => {
       ? (data.status = `Rejected`)
       : (data.status = `Approved`);
     await axios
-      .post(`http://localhost:4005/event`, {
+      .post(`http://${process.env.HOST_EVENT_BUS_BACKEND}:4005/event`, {
         type: `CommentModerated`,
         data: { ...data },
       })
