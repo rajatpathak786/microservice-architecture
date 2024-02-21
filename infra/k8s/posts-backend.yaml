@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: posts-backend
+spec:
+  containers: 
+    - name: posts-backend
+      image: post-backend:1.0.0
