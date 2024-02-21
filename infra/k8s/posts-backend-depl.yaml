@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: posts-backend-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: posts-backend
+  template:
+    metadata:
+      labels:
+        app: posts-backend
+    spec:
+      containers: 
+        - name: posts-backend
+          image: rajatpathak/post-backend
