@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-srv                                                     
+spec:
+  ingressClassName: nginx                                    # specifies our ingress object that it has some routing rules for it               
+  rules:                                                     # Rules will have routing rules which we want to apply for ingress controller to route it to different paths, rules will be an array
+    - host: post.com                                         
+      http:
+        paths:
+          - path: /posts                                     # Here it will check requests to /posts and would route them to post-backend-clusterip-srv, 
+            pathType: Prefix                                  
+            backend:
+              service:                                       # As that service would then listen requests and process it to respective pod.              
+                name: post-backend-clusterip-srv             # Port associated with the service
+                port:
+                  number: 4000
