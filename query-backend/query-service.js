@@ -44,7 +44,7 @@ const framePostAndCommentService = async (req) => {
 
 const queryPendingEventsService = async () => {
   const events = await axios
-    .get(`http://localhost:4005/event`)
+    .get(`http://event-bus-backend-srv:4005/event`)
     .catch((err) => console.log(err.message));
   if (events && events.data) {
     const promises = events.data.map(

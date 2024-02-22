@@ -5,16 +5,16 @@ const emitEventService = async (req) => {
   const event = req.body;
   events.push(event);
   await axios
-    .post(`http://localhost:4000/event`, req.body)
+    .post(`http://post-backend-clusterip-srv:4000/event`, req.body)
     .catch((err) => console.log(err.message));
   await axios
-    .post(`http://localhost:4001/event`, req.body)
+    .post(`http://comment-backend-srv:4001/event`, req.body)
     .catch((err) => console.log(err.message));
   await axios
-    .post(`http://localhost:4002/event`, req.body)
+    .post(`http://query-backend-srv:4002/event`, req.body)
     .catch((err) => console.log(err.message));
   await axios
-    .post(`http://localhost:4003/event`, req.body)
+    .post(`http://moderation-backend-srv:4003/event`, req.body)
     .catch((err) => console.log(err.message));
   return;
 };

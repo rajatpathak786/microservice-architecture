@@ -12,7 +12,7 @@ const addPostService = async (req) => {
   };
   posts.push(post);
   await axios
-    .post(`http://localhost:4005/event`, {
+    .post(`http://event-bus-backend-srv:4005/event`, {
       type: `CreatePost`,
       data: { ...post },
     })
