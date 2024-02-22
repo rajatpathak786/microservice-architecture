@@ -7,7 +7,7 @@ function ListPosts() {
   const [posts, setPost] = useState([]);
   const fetchPosts = async () => {
     const res = await axios
-      .get(`http://localhost:4002/posts`)
+      .get(`http://post.com/posts`)
       .catch((err) => console.log(err));
     if (res && res.status === 200) {
       setPost(res.data);

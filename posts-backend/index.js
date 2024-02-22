@@ -16,5 +16,5 @@ app.listen(4000, () => {
 });
 
 app.get("/posts", getPostsController);
-app.post("/posts", createPostController);
+app.post("/posts/create", createPostController);
 app.post("/event", eventListenerController);

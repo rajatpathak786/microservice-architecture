@@ -6,7 +6,7 @@ function CreateComment({ postId }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     await axios
-      .post(`http://localhost:4001/posts/${postId}/comment`, {
+      .post(`http://post.com/posts/${postId}/comment`, {
         content: comment,
       })
       .then((res) => console.log(res))
