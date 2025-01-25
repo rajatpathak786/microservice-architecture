@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: posts-backend-depl                                       # Sets Name of deployment object
+spec:
+  replicas: 1                                                    # Mentions number of identical pod replicas to run
+  selector:
+    matchLabels:
+      app: posts-backend                                         # Selects the pods with label app: posts-backend which deployment object should manage
+  template:                                                      # Provides template for creating new pods
+    metadata:
+      labels:
+        app: posts-backend                                       # Specifies new pod should be created with label app: posts-backend
+    spec:                                                        # Provides specification to pod
+      containers:                                                
+        - name: posts-backend                                    # Assings name to container inside pod
+          image: rajatpathak/post-backend                        # Specifies docker image to be used for container
+
+---                                                              # --- is used to write multiple objects in an .yaml file
+
+# Here we'll specify another object cluster IP service to communicate between diff pods
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: post-backend-clusterip-srv                               # Name of service created
+spec:                                                            # Provides specifications for the service
+  type: ClusterIP                                                # Mentions type of service created here we've created ClusterIP (Here even if we don't provide type k8s will by default create ClusterIP service)
+  selector:
+    app: posts-backend                                           # selector selects pod with label app: posts-backend and forward request to that
+  ports:
+    - name: posts-backend                                        # Name of ports attached to service, just for logging purpose [ - mentions array in kubernetes object file, means array of ports ]
+      protocol: TCP
+      port: 4000                                                 # Mentions port to which Service would listen to
+      targetPort: 4000                                           # Mentions port of pod which service will send incoming request           

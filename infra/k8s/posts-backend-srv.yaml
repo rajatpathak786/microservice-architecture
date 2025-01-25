@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-backend-srv                 # Name of service created
+spec:                                     # Provides specifications for the service
+  type: NodePort                          # Mentions type of service created here we've created NodePort
+  selector:
+    app: posts-backend                    # selector selects pod with label app: posts-backend and forward request to that
+  ports:
+    - name: posts-backend                 # Name of ports attached to service, just for logging purpose [ - mentions array in kubernetes object file, means array of ports ]
+      protocol: TCP
+      port: 4000                          # Mentions port to which Service would listen to
+      targetPort: 4000                    # Mentions port of pod which service will send incoming request 
